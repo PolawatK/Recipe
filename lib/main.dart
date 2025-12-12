@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/Model/recipe.dart';
 import 'package:recipes/recipe-detail.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const RecipeApp());
@@ -71,7 +72,13 @@ Widget buildRecipeCard(Recipe recipe) {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: <Widget>[
-          Text(recipe.imgLabel),
+          Text(
+            recipe.imgLabel,
+            style: GoogleFonts.poppins(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           SizedBox(height: 8.0),
           Image(image: AssetImage(recipe.imageUrl)),
           SizedBox(height: 14.0),
