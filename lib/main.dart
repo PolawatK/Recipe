@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipes/Model/recipe.dart';
+import 'package:recipes/recipe-detail.dart';
 
 void main() {
   runApp(const RecipeApp());
@@ -39,7 +40,20 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Container(
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return buildRecipeCard(Recipe.samples[index]);
+              return GestureDetector(
+                onTap: () {
+                  print('You tapped on ${Recipe.samples[index].imgLabel}');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return RecipeDetail(recipe: Recipe.samples[index]);
+                      },
+                    ),
+                  );
+                },
+                child: buildRecipeCard(Recipe.samples[index]),
+              );
             },
             itemCount: Recipe.samples.length,
           ),
@@ -51,11 +65,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Widget buildRecipeCard(Recipe recipe) {
   return Card(
-    child: Column(
-      children: <Widget>[
-        Image(image: AssetImage(recipe.imageUrl)),
-        Text(recipe.imgLabel),
-      ],
+    elevation: 2.0,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: <Widget>[
+          Text(recipe.imgLabel),
+          SizedBox(height: 8.0),
+          Image(image: AssetImage(recipe.imageUrl)),
+          SizedBox(height: 14.0),
+          Text(
+            "i'm hungry",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     ),
   );
 }
